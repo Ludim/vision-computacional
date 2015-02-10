@@ -39,35 +39,45 @@ class Operador():
         # primero obtener el pixel mas grande y el mas pequeno
         matrizPix = self.i.load() 
         listaPixeles = []
-        frecuencias = {}
-        for i in xrange(0,256):
-            frecuencias[i] = 0
+#        frecuencias = {}
+#        for i in xrange(0,256):
+#            frecuencias[i] = 0
 
         for x in xrange(self.w):
             for y in xrange(self.h):
-                #colorPromedio = (matrizPix[x,y][0] + matrizPix[x,y][1] + matrizPix[x,y][2])/3
-                colorPromedio = matrizPix[x,y][0]
-                listaPixeles.append(colorPromedio)                
+                colorPromedio = (matrizPix[x,y][0] + matrizPix[x,y][1] + matrizPix[x,y][2])/3
+                #colorPromedio = matrizPix[x,y][0]
+                listaPixeles.append(colorPromedio)
                 #print colorPromedio
-                if colorPromedio in frecuencias:                    
-                    frecuencias[colorPromedio] = frecuencias[colorPromedio] + 1
-        print "FRECUENCIAS"
-        # http://progpython.blogspot.mx/2011/09/histogramas-con-python-matplotlib.html
-        # http://pythonya.appspot.com/detalleconcepto?deta=Los%20diccionarios%20tratados%20como%20objetos
-        print frecuencias.values()
-        print
-        hist(frecuencias.values(), 256,(0,255))
-        show()
+                # if colorPromedio in frecuencias:                    
+                #     frecuencias[colorPromedio] = frecuencias[colorPromedio] + 1
+        # print "FRECUENCIAS"
+        # # http://progpython.blogspot.mx/2011/09/histogramas-con-python-matplotlib.html
+        # # http://pythonya.appspot.com/detalleconcepto?deta=Los%20diccionarios%20tratados%20como%20objetos
+        # print frecuencias.values()
+        # print
+        # hist(frecuencias.values(), 256,(0,255))
+        # show()
             
 
-        print frecuencias
+        #print frecuencias
         pixMenor = min(listaPixeles)
         pixMayor = max(listaPixeles)
         print "Pix menor ", pixMenor
         print "Pix mayor ",pixMayor
-
-
-
+        
+        # hay que ver como cambia el histograma
+        for x in xrange(self.w):
+            for y in xrange(self.h):
+                r,g,b = self.i.getpixel((x,y))
+                #print r,g,b
+                r = ((r - pixMenor) / (pixMayor - pixMenor)) * r#255
+                g = ((g - pixMenor) / (pixMayor - pixMenor)) * g#255
+                b = ((b - pixMenor) / (pixMayor - pixMenor)) * b#255
+                #print r,g,b
+                self.newIm.putpixel((x,y),(r,g,b))
+        self.newIm.save("fldrimg/elonga", self.i.format)
+        
 
     # def shiftingHorizontal(self):
     #     # primero saco la media de cada columna
