@@ -72,35 +72,6 @@ class Filtro():
         self.newIm.save("fldrimg/grislm",self.i.format)
         self.newIm.show()
 
-    def moverImg(self,movimiento):
-        if movimiento == "izq":
-            self.movIzq()
-        elif movimiento == "der":
-            print 'lala'
-        elif movimiento == "arriba":
-            print 'lala'
-        elif movimiento == "abajo":
-            print 'lala'
-        elif movimiento == "diagonal":
-            print 'lala'
-        else:
-            print 'Escribe algo'
-
-
-    def movIzq(self):
-        print 'moviendo a izq'
-        print "ancho ",self.w
-        for x in xrange(self.w):
-            for y in xrange(self.h):
-                if x <= 80:
-                    #print (self.w-x),y
-                    r,g,b = self.i.getpixel(((self.w-x)-1,y))
-                else:
-                    r,g,b = self.i.getpixel((x-50,y))
-                self.newIm.putpixel((x,y),(r,g,b))
-        self.newIm.save("fldrimg/izq",self.i.format)
-
-
 def main():
     nameIm = argv[1]
     print "My image: ",nameIm
@@ -109,13 +80,9 @@ def main():
     #filtro.aclararImagen()
     #filtro.negativo()
     #filtro.blancoNegro()
-    filtro.escalaGrisLm()
-    filtro.escalaGrisLg()
+    #filtro.escalaGrisLm()
+    #filtro.escalaGrisLg()
     #filtro.imagenOriginal()
-    #filtro.moverImg("izq")
-    #filtro.moverImg("der")
-    #filtro.moverImg("arriba")
-    #filtro.moverImg("abajo")
-    #filtro.moverImg("diagonal")
+
 if __name__ == '__main__':
     main()

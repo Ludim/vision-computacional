@@ -128,7 +128,6 @@ class Operador():
             #print media
         print "Media de cada columna: ",mediaCol 
         print len(mediaCol)
-
         
         for y in xrange(self.h):
             for x in xrange(self.w): # recorre para abajo
