@@ -6,14 +6,11 @@ import math
 #a = numpy.array([[1,2,3,4],[4,5,6,4],[7,8,9,4]])
 #print "Promedio columnas    ",len(numpy.median(a, axis = 0))
 #print "Promedio filas ",len(numpy.median(a, axis = 1))
-#img = Image.open("fldrimg/grislm")
-img = Image.open("fldrimg/oscura")
+img = Image.open("fldrimg/grislm")
+#img = Image.open("fldrimg/oscura")
 w = img.size[0]
-print w
 h = img.size[1]
-print h
-matrizImg = img.load()
-# la imagen debe estar en escala de grises
+matrizImg = img.load() # la imagen debe estar en escala de grises
 matriz = []
 for i in range(h):
     matriz.append([])
@@ -38,18 +35,9 @@ for x in xrange(mitadIm):
         r = int((promedioCol[x] * r) / promedioCol[len(promedioCol)-x-1])
         g = int((promedioCol[x] * g) / promedioCol[len(promedioCol)-x-1])
         b = int((promedioCol[x] * b) / promedioCol[len(promedioCol)-x-1])
-        r1 = int(((len(promedioCol)-x-1) * r1) / promedioCol[x])
-        g1 = int(((len(promedioCol)-x-1) * g1) / promedioCol[x])
-        b1 = int(((len(promedioCol)-x-1) * b1) / promedioCol[x])
+        r1 = int(((promedioCol[len(promedioCol)-x-1] * r1) / promedioCol[x]))
+        g1 = int(((promedioCol[len(promedioCol)-x-1] * g1) / promedioCol[x]))
+        b1 = int(((promedioCol[len(promedioCol)-x-1] * b1) / promedioCol[x]))
         newIm.putpixel((x,y),(r,g,b))
         newIm.putpixel((w-x-1,y),(r1,g1,b1))
-newIm.save("fldrimg/shiftHor",img.format)
-
-# for y in xrange(self.h):
-#     for x in xrange(self.w): # recorre para abajo
-#     r = (mediaCol[y] * r) / mediaCol[len(mediaCol)-y-1]
-#     g = (mediaCol[y] * g) / mediaCol[len(mediaCol)-y-1]
-#     b = (mediaCol[y] * b) / mediaCol[len(mediaCol)-y-1]
-#     self.newIm.putpixel((x,y),(r,g,b))
-#     self.newIm.save("fldrimg/shifth",self.i.format)
-
+newIm.save("fldrimg/shiftVertical",img.format)
