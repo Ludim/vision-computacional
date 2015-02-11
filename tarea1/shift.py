@@ -1,26 +1,18 @@
 import numpy
 from PIL import Image
-
-def PIL2arra(img):
-    return numpy.array(img.getdata(), numpy.uint8)
-   
+import math   
 #img = Image.open("fldrimg/2")#.convert("L")
-#print img
-#arr = numpy.array(img)#.getdata()).reshape(img.size[0],img.size[1],3)
-print numpy.array([[1,2,3,4],[4,5,6,4],[7,8,9,4]])
-#numpy.array([[1,2,3],[4,5,6],[7,8,9]])
-a = numpy.array([[1,2,3,4],[4,5,6,4],[7,8,9,4]])
-print "Promedio columnas    ",len(numpy.median(a, axis = 0))
-print "Promedio filas ",len(numpy.median(a, axis = 1))
-
-
-img = Image.open("fldrimg/grislg")
+#print numpy.array([[1,2,3,4],[4,5,6,4],[7,8,9,4]])
+#a = numpy.array([[1,2,3,4],[4,5,6,4],[7,8,9,4]])
+#print "Promedio columnas    ",len(numpy.median(a, axis = 0))
+#print "Promedio filas ",len(numpy.median(a, axis = 1))
+#img = Image.open("fldrimg/grislm")
+img = Image.open("fldrimg/oscura")
 w = img.size[0]
 print w
 h = img.size[1]
 print h
 matrizImg = img.load()
-#print arr
 # la imagen debe estar en escala de grises
 matriz = []
 for i in range(h):
@@ -28,10 +20,36 @@ for i in range(h):
     for j in range(w):
         valor = (matrizImg[j,i][0] + matrizImg[j,i][1] + matrizImg[j,i][2]) / 3
         matriz[i].append(valor)
-
 #print numpy.array(matriz)
 matrixNm = numpy.array(matriz)
-for x in matrixNm:
-    print x
+promedioCol = numpy.median(matrixNm,axis=0)
+promedioFil = numpy.median(matrixNm,axis=1)
 print "Promedio columnas ",len(numpy.median(matrixNm,axis=0))
 print "Promedio filas    ",len(numpy.median(matrixNm,axis=1))
+# shift vertical
+mitadIm = int(math.floor(w/2))
+print mitadIm
+newIm = Image.new(img.mode,img.size)
+# se usa el de columnas
+for x in xrange(mitadIm):
+    for y in xrange(h): # recorre para abajo
+        r,g,b = img.getpixel((x,y))
+        r1,g1,b1 = img.getpixel((w-x-1,y))
+        r = int((promedioCol[x] * r) / promedioCol[len(promedioCol)-x-1])
+        g = int((promedioCol[x] * g) / promedioCol[len(promedioCol)-x-1])
+        b = int((promedioCol[x] * b) / promedioCol[len(promedioCol)-x-1])
+        r1 = int(((len(promedioCol)-x-1) * r1) / promedioCol[x])
+        g1 = int(((len(promedioCol)-x-1) * g1) / promedioCol[x])
+        b1 = int(((len(promedioCol)-x-1) * b1) / promedioCol[x])
+        newIm.putpixel((x,y),(r,g,b))
+        newIm.putpixel((w-x-1,y),(r1,g1,b1))
+newIm.save("fldrimg/shiftHor",img.format)
+
+# for y in xrange(self.h):
+#     for x in xrange(self.w): # recorre para abajo
+#     r = (mediaCol[y] * r) / mediaCol[len(mediaCol)-y-1]
+#     g = (mediaCol[y] * g) / mediaCol[len(mediaCol)-y-1]
+#     b = (mediaCol[y] * b) / mediaCol[len(mediaCol)-y-1]
+#     self.newIm.putpixel((x,y),(r,g,b))
+#     self.newIm.save("fldrimg/shifth",self.i.format)
+
