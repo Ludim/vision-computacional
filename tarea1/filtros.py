@@ -3,13 +3,11 @@
 
 from PIL import Image
 from sys import argv
-import math
 '''
 Clase basica para aplicar filtro a una imagen. Los filtros son:
      - Aclarado
      - Negativo
      - B/N
-     - Decolorar (lo blanco lo aclara, lo negro lo oscurece, para los demas colores fijar un umbral)
 Autor: Ludim Sanchez Lopez
 '''
 
@@ -53,7 +51,7 @@ class Filtro():
         self.newIm.save("fldrimg/2_c",self.i.format)
         
     # http://www.johndcook.com/blog/2009/08/24/algorithms-convert-color-grayscale/
-    # POr el metodo lightness
+    # Por el metodo lightness
     def escalaGrisLg(self):
         for x in xrange(self.w):
             for y in xrange(self.h):
