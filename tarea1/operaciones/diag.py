@@ -1,7 +1,7 @@
 import numpy
 from PIL import Image
 import math   
-img = Image.open("fldrimg/grislm")
+img = Image.open("fldrimg/1")
 #img = Image.open("fldrimg/oscura")
 w = img.size[0]
 h = img.size[1]
