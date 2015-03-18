@@ -1,28 +1,35 @@
-====================================
-		Tarea 2
-====================================
+ =====================================================
+| 		   	Tarea 2	 		      |
+ =====================================================
 
 Para esta tarea se solicito programar:
      Filtros:
-	Moda
-	Media
-	Mediana
-	Sal y pimienta
-	... ? falta alguno
+	> Moda
+	> Media
+	> Mediana
+	> Sal y pimienta
      Umbral a:
 	4 tonos
-	16 tonos
+	> 16 tonos
 	32 tonos
      Encontrar zonas de vecindad
-     	Se debe marcar con un colores
-	las zonas encontradas.
+     	Se debe marcar con un color 
+	diferente las zonas encontradas.
 
-
+======================================================
 La carpeta esta dividida en:
+
    src: contiene todo el código utilizado
        - filtros.py
        - umbral.py
        - vecindad.py
- 
+       - Operadores.py, tiene las funciones
+       	  > imprimirMatrizSalida(): guarda la matriz 
+		de salida en un archivo.
+	  > grayScale(): convierte una imagen R,G,B
+		a escala de gris, además de guardar
+		la matriz de entrada en un archivo.
+
    img: en esta carpeta se deben colocar 
    	las imagenes que se van a utilizar
+======================================================

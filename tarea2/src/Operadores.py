@@ -4,8 +4,6 @@ from PIL import Image
 
 class Operadores:
     def __init__(self,image):
-        if image.mode == 'L':
-            print 'Sorry in this moment only works with image in RGBA or RGB'
         self.img = image#.resize((450,450))
         self.matrizPixel = self.img.load()
         self.width= self.img.size[0]
@@ -41,16 +39,3 @@ class Operadores:
         nombreImgSalida = "../img/"+output # regresamos el nombre del archivo
         print " > Nombre imagen escala de gris: "+ nombreImgSalida
         return nombreImgSalida # regresamos el nombre del archivo
-
-#op = Operadores(Image.open('../img/flor'))
-#op1 = Operadores(Image.open('../img/flor'))
-#op2 = Operadores(Image.open('../img/cumple'))
-#op3 = Operadores(Image.open('../img/silla'))
-#op4 = Operadores(Image.open('../img/golpe'))
-#op5 = Operadores(Image.open('../img/pelea'))
-#op.grayScale("florgris")
-#op1.grayScale("florgris")
-#op2.grayScale("cumplegris")
-#op3.grayScale("sillagris")
-#op4.grayScale("golpegris")
-#op5.grayScale("peleagris")
