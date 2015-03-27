@@ -2,13 +2,11 @@
 from PIL import Image
 import random
 
-# poner el codigo en espanol, es decir variables en espanol no mezclado :P
-
 #olvida la imagen y crea la matriz a partir de un archivo de texto
 pixelesImagen = []
 
 i = 0
-with open("chitaoutput.txt","r") as archivo: # este archivo se genera cuando se umbraliza la imagen
+with open("image_lines.txt","r") as archivo: # este archivo se genera cuando se umbraliza la imagen
 	for linea in archivo:
 		j = 0
 		pixelesImagen.append([])
@@ -19,7 +17,7 @@ with open("chitaoutput.txt","r") as archivo: # este archivo se genera cuando se 
 		i+=1
 
 
-img = Image.open("../img/umbral")
+img = Image.open("../img/said_umbral.jpg")
 #matriz = img.load()
 anchoImag = img.size[0]
 altoImag = img.size[1]
@@ -65,6 +63,6 @@ for w in range(anchoImag):
 									siguiente.append((i,j))
 			print vecindad
 			aux.append(vecindad)
-nuevaImag.save("../img/umbral_VECINDAD", img.format)
+nuevaImag.save("../img/said_VECINDAD.png", img.format)
 for i in range(len(aux)):
 	print aux[i]
