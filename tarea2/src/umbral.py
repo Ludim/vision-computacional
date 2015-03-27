@@ -14,7 +14,9 @@ class threshold16:
         self.newImag = Image.new(self.imag.mode,self.imag.size)
 
     def threshold(self):
+        archivoOutput = open("chitaoutput.txt", "w")
         ran = 255/16 # saltos de 16
+        colores = []
         for x in range(self.width):
             for y in range(self.height):
                 gray = self.imag.getpixel((x,y)) # esta tomando los tres
@@ -103,19 +105,25 @@ class threshold16:
                 else:
                     gray = 255 # revisar esta ultima condicion bien
                 self.newImag.putpixel((x,y),(gray,gray,gray))
+                colores.append(gray)
+                archivoOutput.write(str(gray)+str(", "))
+                print gray
+            archivoOutput.write("\n")
+        print colores.sort()
+
+        archivoOutput.close()
         self.newImag.save("../img/umbral",self.imag.format)
-#        self.newImag.show()
         print "Done.."
+        print(" > Matriz de salida guardada en archivo output.txt")
 
-
-
+#Lista colores = [0, 15, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255]
 
 def main():
     #Tk().withdraw()
     #tkMessageBox.showinfo( "Image", "Select an Image")
     #usrImag = askopenfilename()
-    #usrImag = '../img/Chita_16gris'
-    usrImag = '../img/SaltAndPeppersalpimienta'
+    usrImag = '../img/Chita_16gris'
+    #usrImag = '../img/SaltAndPeppersalpimienta'
     thres = threshold16(Image.open(str(usrImag)))
     thres.threshold()
 

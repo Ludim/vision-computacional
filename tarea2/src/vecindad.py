@@ -1,47 +1,57 @@
 #!/usr/bin/python
-matriz = [[150,150,0,150,150],[150,0,0,0,150],[0,0,0,0,0],[150,0,0,0,150]]#,[150,150,0,150,150]]
+from PIL import Image
+import random
+
+img = Image.open("../img/umbral")
+matriz = img.load()
+width = img.size[0]
+height = img.size[1]
+new = Image.new(img.mode,img.size)
 visitados = []
 vecindad = [] # lista de listas
 aux = []
-for w in range(len(matriz)): #img.size[0]):
-	for h in range(len(matriz[0])):#img.size[0]):
-		#print w,h
+
+colores = []
+for i in range(width):
+	for j in range(height):
+		print img.getpixel((i,j))
+		print matriz[i,j][0], ",",matriz[i,j][1],",",matriz[i,j][2]
+		#colores.append(matriz[i,j][0])
+#a = colores.sort()
+#print colores
+exit()
+
+for w in range(width):
+	for h in range(height):
+#		print w,h
 		if not((w,h) in visitados):
 			vecindad = []
-			siguiente = [(w,h)]		# posicion del pixel actual
-			colPix = matriz[w][h] 	# color del pixel actual
-			#print "siguiente = ", siguiente, " ",
+			siguiente = [(w,h)]
+			colPix = matriz[w,h][0] # color pixel
+			print "Color ",colPix
+			nuevocolor = random.randint(0,255)
+			new.putpixel((w,h),(nuevocolor,nuevocolor,nuevocolor))
 			while siguiente:
-				posPix = siguiente.pop()	# 0,0
+				posPix = siguiente.pop() # posicion pixel
 				x = posPix[0]
 				y = posPix[1]
-				#print "   posPix = ", posPix
 				visitados.append(posPix)
 				if not(posPix in vecindad):
 					vecindad.append(posPix)
 				for i in range(x-1,x+2):
 					for j in range(y-1,y+2):
-						#print "(",i,j,")"
-						if not(x == i and y == j): # no toma en cuenta el pixel actual
+						if not(x == i and y == j):
 							if ((i >= 0 and j >= 0) and
-								(i < len(matriz) and j < len(matriz[0])) 
-								and (colPix == matriz[i][j])):
+								(i < width and j < height) 
+								and (colPix == matriz[i,j][0])):
 								posPix = (i,j)
-								#print "posPix = ",posPix, "color = ",matriz[i][j]
+								print "Color ",colPix, " Color vecino ", matriz[i,j][0]
 								if (not(posPix in vecindad) and not(posPix in visitados)):
-									#print " pixel anadido = ",posPix, " no esta en visitados ni vecindad"
+									new.putpixel(posPix,(nuevocolor,nuevocolor,nuevocolor))
 									vecindad.append((i,j))
 									siguiente.append((i,j))
-				#print "\nsiguiente = ", siguiente
-				#print " vecindad = ",vecindad
-			#print "\n\n"
-
-			####print "vecindad = ",vecindad
+			print vecindad
 			aux.append(vecindad)
-			###print "     aux = ",aux
-			##print "\nsaliendo de while"
-#print aux
-
-
+new.save("../img/umbral_VECINDAD", img.format)
 for i in range(len(aux)):
 	print aux[i]
